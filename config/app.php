@@ -145,6 +145,20 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		/**
+		 * Third Party Service Providers...
+		 */
+		// 'Way\Generators\GeneratorsServiceProvider',
+		'Laracasts\Commander\CommanderServiceProvider',
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Laracasts\Flash\FlashServiceProvider',
+		'Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider',
+		"Intervention\Image\ImageServiceProvider",
+//		'Artdarek\OAuth\OAuthServiceProvider',
+		'Cmgmyr\Messenger\MessengerServiceProvider',
+		'Awjudd\FeedReader\FeedReaderServiceProvider',
+		'Thujohn\Twitter\TwitterServiceProvider',
+
 	],
 
 	/*
@@ -192,6 +206,16 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		/**
+		 * Third Party Aliases...
+		 */
+		'Flash'             => 'Laracasts\Flash\Flash',
+		"Slugify"           => "Cocur\Slugify\Bridge\Laravel\SlugifyFacade",
+		'Image'             => 'Intervention\Image\Facades\Image',
+		'OAuth' 			=> 'Artdarek\OAuth\Facade\OAuth',
+		'FeedReader'     	=> 'Awjudd\FeedReader\Facades\FeedReader',
+		'Twitter' 			=> 'Thujohn\Twitter\TwitterFacade',
 
 	],
 
