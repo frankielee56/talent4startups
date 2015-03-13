@@ -198,7 +198,14 @@ Route::get('terms', array(
 	'uses' => 'StaticController@about',
 	'as' => 'terms'
 ));
-
+Route::get('privacy', array(
+	'uses' => 'StaticController@privacy',
+	'as' => 'privacy'
+));
+Route::get('termsofservice', array(
+	'uses' => 'StaticController@termsOfService',
+	'as' => 'termsOfService'
+));
 
 /**
  * Ratings
