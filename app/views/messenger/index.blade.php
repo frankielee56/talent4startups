@@ -28,13 +28,29 @@
         <?php $class = $thread->isUnread($currentUserId) ? 'alert-info' : ''; ?>
         <div class="media alert {{$class}} message {{ $thread->latestMessage()->type }}">
             @if ($thread->latestMessage()->type == 'message')
-            <a class="pull-left" href="#">
-                <img src="//www.gravatar.com/avatar/{{md5($thread->latestMessage()->user->email)}}?s=64&d=wavatar" alt="{{$thread->latestMessage()->user->profile->first_name}} {{$thread->latestMessage()->user->profile->last_name}}" class="img-circle">
-            </a>
+            <div class="pull-left">
+                <a href="{{ route('profile_path', $thread->latestMessage()->user->id) }}"><img src="{{ $thread->latestMessage()->user->profile->avatar() }}?s=64&d=mm" alt="{{$thread->latestMessage()->user->profile->first_name}} {{$thread->latestMessage()->user->profile->last_name}}" class="img-circle"></a>
+                <p><a href="{{ route('profile_path', $thread->latestMessage()->user->id) }}">{{$thread->latestMessage()->user->profile->first_name}} {{$thread->latestMessage()->user->profile->last_name}}</a></p>
+            </div>
             @endif
-            <h4 class="media-heading">{{link_to('messages/' . $thread->id, $thread->subject)}}</h4>
-            <p class=""> {{ $thread->updated_at->format('M j, Y') }} <small>{{ $thread->updated_at->diffForHumans() }}</small></p>
-            <p>
+            <div class="pull-right actions">
+                @if($thread->isUnread($currentUserId))
+                    <a href="{{ route('messages.markRead', $thread->id) }}" class="btn btn-warning pull-right">Mark Read</a>
+
+                @else
+                    <a href="{{ route('messages.unread', $thread->id) }}" class="btn btn-default pull-right">Mark Unread</a>
+                @endif
+            </div>
+            <h4 class="media-heading">Subject: {{link_to('messages/' . $thread->id, $thread->subject)}}</h4>
+            <p class="">
+                @if((count($thread->messages) > 1) && $thread->latestMessage()->user->id == $currentUser->id) Replied
+                @elseif((count($thread->messages) == 1) && $thread->latestMessage()->user->id == $currentUser->id) Sent
+                @else Last Reply
+                @endif
+                {{ $thread->updated_at->format('M j, Y') }}
+                <small>{{ $thread->updated_at->diffForHumans() }}</small>
+            </p>
+            <p>Participants:
                 @foreach($thread->participantsUsers() as $user)
                     @if ($user->id != $thread->latestMessage()->user->id && (count($thread->messages) > 1)) <strong>{{ $user->profile->first_name }} {{ $user->profile->last_name }}, </strong>
                     @elseif ($user->id != $thread->latestMessage()->user->id) <strong>{{ $user->profile->first_name }} {{ $user->profile->last_name }} </strong> @endif
@@ -42,18 +58,9 @@
                 @endforeach
                 @if(count($thread->messages) > 1) <strong>{{$thread->latestMessage()->user->profile->first_name}} {{$thread->latestMessage()->user->profile->last_name}}</strong> @endif
                 @if(count($thread->messages) > 1) ({{ count($thread->messages) }}) @endif
-                @if((count($thread->messages) > 1) && $thread->latestMessage()->user->id == $currentUser->id) <small>(Replied)</small> @endif
             </p>
             <p class="text-muted">{{ Str::words($thread->latestMessage()->body, 15) }}</p>
             <div class="clearfix"></div>
-            <div class="pull-right actions">
-                @if($thread->isUnread($currentUserId))
-                    <a href="{{ route('messages.markRead', $thread->id) }}" class="btn btn-warning pull-right">Mark Read</a>
-
-                @else
-                    <a href="{{ route('messages.unread', $thread->id) }}" class="btn btn-default pull-right">Mark Unread</a>
-               @endif
-            </div>
             <div class="pull-left actions">
                 <a href="{{ route('messages.show', $thread->id) }}" class="btn btn-default pull-right read-more">Read More</a>
             </div>
