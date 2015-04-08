@@ -49,11 +49,6 @@
 						<h4><a href="{{ route('startups.show', $startup->url) }}">{{ $startup->name }}</a> <small>By: {{ $startup->owner->profile->first_name }} {{ $startup->owner->profile->last_name }}</small></h4>
 						<p>{{ Str::limit( $startup->description, 50 ) }}</p>
 					</div>
-					<div class="clearfix">
-						@if ($currentUser and $currentUser->username == $user->username)
-							<p><a href="{{ route('edit_profile') }}" class="btn btn-primary btn-xs pull-right" role="button">Edit</a></p>
-						@endif
-					</div>
 				</div>
 				@endforeach
 					@foreach($startups as $startup)
@@ -61,11 +56,6 @@
 							<div class="clearfix">
 								<h4><a href="{{ route('startups.show', $startup->url) }}">{{ $startup->name }}</a> <small>By: {{ $startup->owner->profile->first_name }} {{ $startup->owner->profile->last_name }}</small></h4>
 								<p>{{ Str::limit( $startup->description, 50 ) }}</p>
-							</div>
-							<div class="clearfix">
-								@if ($currentUser and $currentUser->username == $user->username)
-									<p><a href="{{ route('edit_profile') }}" class="btn btn-primary btn-xs pull-right" role="button">Edit</a></p>
-								@endif
 							</div>
 						</div>
 					@endforeach
