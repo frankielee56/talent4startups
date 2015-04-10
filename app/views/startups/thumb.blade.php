@@ -7,7 +7,7 @@
 		@endif
 	</a>
 
-	<div class="caption">
+	<div class="caption" style="height:203px; overflow:hidden">
 		<h3><a href="{{ route('startups.show', $startup->url) }}">{{ $startup->name }}</a> <br/>
 			<small>By: {{ $startup->owner->profile->first_name }} {{ $startup->owner->profile->last_name }}</small>
 		</h3>

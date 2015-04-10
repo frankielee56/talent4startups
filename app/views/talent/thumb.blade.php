@@ -5,7 +5,7 @@
 
 	<input data-id="{{ $talent->id }}" type="number" class="member-rating-view" value="{{ $talent->rating() }}" }}>
 
-	<div class="caption">
+	<div class="caption" style="height:203px; overflow:hidden">
 		<h3>
 			<a href="{{ route('profile_path', $talent->id) }}">{{ $talent->profile->first_name }} {{ $talent->profile->last_name }}</a>
 		</h3>
@@ -22,8 +22,8 @@
 			@endforeach
 		</p>
 
-		<p><a href="{{ route('profile_path', $talent->id) }}" class="btn btn-primary pull-right" role="button">Learn
-				More</a></p>
 	</div>
 	<div class="clearfix"></div>
+		<p><a href="{{ route('profile_path', $talent->id) }}" class="btn btn-primary pull-right" role="button">Learn
+				More</a></p>
 </div>
