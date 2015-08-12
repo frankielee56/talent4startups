@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\CreateProfile;
-use App\Http\Requests\Request;
+//use App\Http\Requests\Request;
 use App\Http\Requests\ResetPassword;
 use App\Models\Profession;
 use App\Models\Skill;
@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Repositories\ThreadRepository;
 use App\Commands\UpdateProfile as UpdateProfileCommand;
 use Auth, Flash, Image, Redirect, Exception, Hash, Input;
+use Illuminate\Http\Request;
 use Route;
 
 class ProfileController extends Controller
@@ -102,7 +103,7 @@ class ProfileController extends Controller
 			new UpdateProfileCommand(Auth::user(), $request->all())
 		);
 
-		if (array_key_exists('image', $request->all()) and $request->get('image')) {
+		if (array_key_exists('image', $request->all()) and $request->file('image')) {
 			return Redirect::route('profile_image_path');
 		}
 
